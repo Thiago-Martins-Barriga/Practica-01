@@ -27,7 +27,7 @@ answers = [
 correct_answers_index = [1, 2, 0, 3, 1]
 
 
-
+Puntos = 0
 
 for _ in range(3):
     question_index = random.randint(0, len(questions) - 1)
@@ -47,7 +47,7 @@ for _ in range(3):
                 print("Respuesta no válida")
             elif user_answer == correct_answers_index[question_index]:
                 print("¡Correcto!")
-                
+                Puntos += 1
                 break  
             else:
                
@@ -57,8 +57,11 @@ for _ in range(3):
                    
                     print("Incorrecto. La respuesta correcta es:")
                     print(answers[question_index][correct_answers_index[question_index]])
+                    Puntos -= 1
                     
         except ValueError:
             print("Respuesta no válida, ingresa un número.")
     
     print()  
+
+    print ("Los puntos conseguidos fueron:",Puntos, "/3")
