@@ -1,6 +1,6 @@
 import random
 
-# Lista de preguntas
+
 questions = [
     "¿Qué función se usa para obtener la longitud de una cadena en Python?",
     "¿Cuál de las siguientes opciones es un número entero en Python?",
@@ -9,59 +9,52 @@ questions = [
     "¿Cuál es el operador de comparación para verificar si dos valores son iguales?",
 ]
 
-# Opciones de respuesta para cada pregunta
 answers = [
     ("size()", "len()", "length()", "count()"),
     ("3.14", "'42'", "10", "True"),
     ("input()", "scan()", "read()", "ask()"),
-    (
-        "// Esto es un comentario",
-        "/* Esto es un comentario */",
-        "-- Esto es un comentario",
-        "# Esto es un comentario",
-    ),
+    ("// Esto es un comentario", "/* Esto es un comentario */", "-- Esto es un comentario", "# Esto es un comentario"),
     ("=", "==", "!=", "==="),
 ]
 
-# Índices de las respuestas correctas para cada pregunta
 correct_answers_index = [1, 2, 0, 3, 1]
 
 
-Puntos = 0
+questions_to_ask = random.choices(list(zip(questions, answers, correct_answers_index)), k=3)
 
-for _ in range(3):
-    question_index = random.randint(0, len(questions) - 1)
-    print(questions[question_index])
-    
-   
-    for i, answer in enumerate(answers[question_index]):
-        print(f"{i + 1}. {answer}")
-    
-   
+
+puntos = 0
+
+for question, options, correct_index in questions_to_ask:
+    print(question)
+
+  
+    for i, option in enumerate(options):
+        print(f"{i + 1}. {option}")
     for intento in range(2):
         try:
             user_answer = int(input("Respuesta: ")) - 1  
-            
-            
-            if user_answer < 0 or user_answer >=5:
-                print("Respuesta no válida")
-            elif user_answer == correct_answers_index[question_index]:
+
+      
+            if user_answer < 0 or user_answer >= len(options):
+                print("Respuesta no válida, ingresa un número dentro del rango.")
+                continue 
+
+            if user_answer == correct_index:
                 print("¡Correcto!")
-                Puntos += 1
-                break  
+                puntos += 1
+                break 
             else:
-               
                 if intento == 0:
                     print("Incorrecto. Intenta de nuevo.")
                 else:
-                   
-                    print("Incorrecto. La respuesta correcta es:")
-                    print(answers[question_index][correct_answers_index[question_index]])
-                    Puntos -= 1
-                    
-        except ValueError:
-            print("Respuesta no válida, ingresa un número.")
-    
-    print()  
+                    print(f"Incorrecto. La respuesta correcta es: {options[correct_index]}")
+                    puntos -= 0.5
+                
+                
 
-    print ("Los puntos conseguidos fueron:",Puntos, "/3")
+        except ValueError:
+            print("Entrada no válida. Ingresa un número.")
+
+
+print(f"Puntaje final: {puntos}/3")
